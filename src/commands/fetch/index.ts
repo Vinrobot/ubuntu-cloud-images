@@ -1,4 +1,4 @@
-import { Command, ux } from '@oclif/core';
+import { Command, Flags, ux } from '@oclif/core';
 
 import { UbuntuScraper } from '../../lib/ubuntu';
 
@@ -7,20 +7,45 @@ export default class Fetch extends Command {
 
   static examples = [];
 
-  static flags = {};
+  static flags = {
+    name: Flags.string(),
+    version: Flags.string(),
+    arch: Flags.string(),
+    release: Flags.string(),
+  };
 
   static args = {};
 
   async run(): Promise<void> {
-    await this.parse(Fetch);
+    const { flags } = await this.parse(Fetch);
 
     const scraper = new UbuntuScraper();
 
     ux.action.start('Fetching releases...');
-    const releases = await scraper.loadReleases();
+    let releases = await scraper.loadReleases();
     ux.action.stop();
 
     this.logToStderr(`Found ${releases.length} releases`);
+
+    if (flags.name) {
+      releases = releases.filter(release => release.name === flags.name);
+      this.logToStderr(`Found ${releases.length} releases with name '${flags.name}'`);
+    }
+
+    if (flags.version) {
+      releases = releases.filter(release => release.version === flags.version);
+      this.logToStderr(`Found ${releases.length} releases with version '${flags.version}'`);
+    }
+
+    if (flags.arch) {
+      releases = releases.filter(release => release.arch === flags.arch);
+      this.logToStderr(`Found ${releases.length} releases with arch '${flags.arch}'`);
+    }
+
+    if (flags.release) {
+      releases = releases.filter(release => release.release === flags.release);
+      this.logToStderr(`Found ${releases.length} releases with release '${flags.release}'`);
+    }
 
     ux.action.start('Filtering releases...');
 

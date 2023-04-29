@@ -59,8 +59,8 @@
     ],
     "topicSeparator": " ",
     "topics": {
-      "hello": {
-        "description": "Say hello to the world and others"
+      "fetch": {
+        "description": "Fetch available Ubuntu Cloud Images"
       }
     }
   }
