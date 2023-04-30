@@ -4,12 +4,13 @@ import { CloudRelease, Release } from './types';
 
 const RELEASES_TABLE_URL = 'https://cloud-images.ubuntu.com/locator/releasesTable';
 
-function getReleaseUrl(release: Release): string {
+function getOvaUrl(release: Release): string {
   if (release.url) return release.url;
-  const version = release.release === 'latest' ? 'release' : 'release-' + release.release;
-  const releaseUrl = `https://cloud-images.ubuntu.com/releases/${release.name}/${version}/`;
-  release.url = releaseUrl;
-  return releaseUrl;
+  const { arch, name, release: date, version } = release;
+  const id = date === 'latest' ? 'release' : 'release-' + date;
+  const url = `https://cloud-images.ubuntu.com/releases/${name}/${id}/ubuntu-${version}-server-cloudimg-${arch}.ova`;
+  release.url = url;
+  return url;
 }
 
 export class UbuntuScraper {
@@ -33,8 +34,8 @@ export class UbuntuScraper {
     } as Release)));
   }
 
-  async isAvailable(release: Release): Promise<boolean> {
-    const url = getReleaseUrl(release);
+  async isOvaAvailable(release: Release): Promise<boolean> {
+    const url = getOvaUrl(release);
     const result = await fetch(url, { method: 'HEAD' });
     return result.status === 200;
   }

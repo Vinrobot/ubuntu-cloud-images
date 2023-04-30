@@ -47,12 +47,12 @@ export default class Fetch extends Command {
       this.logToStderr(`Found ${releases.length} releases with release '${flags.release}'`);
     }
 
-    ux.action.start('Filtering releases...');
+    ux.action.start('Checking availability...');
 
     const availableReleases = [];
     for (const release of releases) {
       // eslint-disable-next-line no-await-in-loop
-      if (await scraper.isAvailable(release)) {
+      if (await scraper.isOvaAvailable(release)) {
         availableReleases.push(release);
       }
     }
