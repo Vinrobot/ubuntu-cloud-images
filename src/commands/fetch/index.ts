@@ -8,10 +8,11 @@ export default class Fetch extends Command {
   static examples = [];
 
   static flags = {
-    name: Flags.string(),
-    version: Flags.string(),
-    arch: Flags.string(),
-    release: Flags.string(),
+    name: Flags.string({ multiple: true, delimiter: ',' }),
+    version: Flags.string({ multiple: true, delimiter: ',' }),
+    arch: Flags.string({ multiple: true, delimiter: ',' }),
+    release: Flags.string({ multiple: true, delimiter: ',' }),
+    'check-availability': Flags.boolean({ default: true, allowNo: true }),
   };
 
   static args = {};
@@ -27,40 +28,48 @@ export default class Fetch extends Command {
 
     this.logToStderr(`Found ${releases.length} releases`);
 
-    if (flags.name) {
-      releases = releases.filter(release => release.name === flags.name);
-      this.logToStderr(`Found ${releases.length} releases with name '${flags.name}'`);
+    const filterName = flags.name;
+    if (filterName) {
+      releases = releases.filter(release => filterName.includes(release.name));
+      this.logToStderr(`Found ${releases.length} releases with name '${filterName.join(', ')}'`);
     }
 
-    if (flags.version) {
-      releases = releases.filter(release => release.version === flags.version);
-      this.logToStderr(`Found ${releases.length} releases with version '${flags.version}'`);
+    const filterVersion = flags.version;
+    if (filterVersion) {
+      releases = releases.filter(release => filterVersion.includes(release.version));
+      this.logToStderr(`Found ${releases.length} releases with version '${filterVersion.join(', ')}'`);
     }
 
-    if (flags.arch) {
-      releases = releases.filter(release => release.arch === flags.arch);
-      this.logToStderr(`Found ${releases.length} releases with arch '${flags.arch}'`);
+    const filterArch = flags.arch;
+    if (filterArch) {
+      releases = releases.filter(release => filterArch.includes(release.arch));
+      this.logToStderr(`Found ${releases.length} releases with arch '${filterArch.join(', ')}'`);
     }
 
-    if (flags.release) {
-      releases = releases.filter(release => release.release === flags.release);
-      this.logToStderr(`Found ${releases.length} releases with release '${flags.release}'`);
+    const filterReleases = flags.release;
+    if (filterReleases) {
+      releases = releases.filter(release => filterReleases.includes(release.release));
+      this.logToStderr(`Found ${releases.length} releases with release '${filterReleases.join(', ')}'`);
     }
 
-    ux.action.start('Checking availability...');
+    if (flags['check-availability']) {
+      ux.action.start('Checking availability...');
 
-    const availableReleases = [];
-    for (const release of releases) {
-      // eslint-disable-next-line no-await-in-loop
-      if (await scraper.isOvaAvailable(release)) {
-        availableReleases.push(release);
+      const availableReleases = [];
+      for (const release of releases) {
+        // eslint-disable-next-line no-await-in-loop
+        if (await scraper.isOvaAvailable(release)) {
+          availableReleases.push(release);
+        }
       }
+
+      ux.action.stop();
+
+      this.logToStderr(`Found ${availableReleases.length} available releases`);
+
+      this.log(JSON.stringify(availableReleases, undefined, 2));
+    } else {
+      this.log(JSON.stringify(releases, undefined, 2));
     }
-
-    ux.action.stop();
-
-    this.logToStderr(`Found ${availableReleases.length} available releases`);
-
-    this.log(JSON.stringify(availableReleases, undefined, 2));
   }
 }
