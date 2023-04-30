@@ -1,16 +1,14 @@
 import fetch from 'node-fetch';
+
 import { parseJSObject, unique } from './helpers';
-import { CloudRelease, Release } from './types';
+import { CloudRelease, Release, ReleaseFile } from './types';
 
 const RELEASES_TABLE_URL = 'https://cloud-images.ubuntu.com/locator/releasesTable';
 
 function getOvaUrl(release: Release): string {
-  if (release.url) return release.url;
   const { arch, name, release: date, version } = release;
   const id = date === 'latest' ? 'release' : 'release-' + date;
-  const url = `https://cloud-images.ubuntu.com/releases/${name}/${id}/ubuntu-${version}-server-cloudimg-${arch}.ova`;
-  release.url = url;
-  return url;
+  return `https://cloud-images.ubuntu.com/releases/${name}/${id}/ubuntu-${version}-server-cloudimg-${arch}.ova`;
 }
 
 export class UbuntuScraper {
@@ -34,9 +32,18 @@ export class UbuntuScraper {
     } as Release)));
   }
 
-  async isOvaAvailable(release: Release): Promise<boolean> {
+  async getOvaFile(release: Release): Promise<ReleaseFile | undefined> {
     const url = getOvaUrl(release);
     const result = await fetch(url, { method: 'HEAD' });
-    return result.status === 200;
+    if (result.status === 200) {
+      const contentLength = result.headers.get('content-length');
+      if (contentLength) {
+        return {
+          url,
+          size: Number.parseInt(contentLength!, 10),
+          etag: result.headers.get('etag'),
+        };
+      }
+    }
   }
 }

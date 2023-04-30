@@ -3,7 +3,13 @@ export interface Release {
   version: string;
   arch: string;
   release: string;
-  url?: string;
+  file?: ReleaseFile;
+}
+
+export interface ReleaseFile {
+  url: string;
+  size: number;
+  etag?: string | null;
 }
 
 export interface CloudRelease extends Release {

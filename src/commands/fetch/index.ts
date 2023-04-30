@@ -12,7 +12,7 @@ export default class Fetch extends Command {
     version: Flags.string({ multiple: true, delimiter: ',' }),
     arch: Flags.string({ multiple: true, delimiter: ',' }),
     release: Flags.string({ multiple: true, delimiter: ',' }),
-    'check-availability': Flags.boolean({ default: true, allowNo: true }),
+    'fetch-files': Flags.boolean({ default: true, allowNo: true }),
   };
 
   static args = {};
@@ -52,13 +52,15 @@ export default class Fetch extends Command {
       this.logToStderr(`Found ${releases.length} releases with release '${filterReleases.join(', ')}'`);
     }
 
-    if (flags['check-availability']) {
+    if (flags['fetch-files']) {
       ux.action.start('Checking availability...');
 
       const availableReleases = [];
       for (const release of releases) {
         // eslint-disable-next-line no-await-in-loop
-        if (await scraper.isOvaAvailable(release)) {
+        const file = await scraper.getOvaFile(release);
+        if (file) {
+          release.file = file;
           availableReleases.push(release);
         }
       }
