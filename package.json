@@ -59,11 +59,6 @@
       "@oclif/plugin-help",
       "@oclif/plugin-plugins"
     ],
-    "topicSeparator": " ",
-    "topics": {
-      "fetch": {
-        "description": "Fetch available Ubuntu Cloud Images"
-      }
-    }
+    "topicSeparator": " "
   }
 }

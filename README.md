@@ -9,7 +9,7 @@ $ npm install -g ubuntu-cloud-images
 $ scraper COMMAND
 running command...
 $ scraper (--version)
-ubuntu-cloud-images/1.0.0 darwin-x64 node-v16.18.1
+ubuntu-cloud-images/1.0.0 darwin-x64 node-v19.2.0
 $ scraper --help [COMMAND]
 USAGE
   $ scraper COMMAND
@@ -19,6 +19,8 @@ USAGE
 
 # Commands
 <!-- commands -->
+* [`scraper fetch`](#scraper-fetch)
+* [`scraper generate LIBPATH RELEASESPATH`](#scraper-generate-libpath-releasespath)
 * [`scraper help [COMMANDS]`](#scraper-help-commands)
 * [`scraper plugins`](#scraper-plugins)
 * [`scraper plugins:install PLUGIN...`](#scraper-pluginsinstall-plugin)
@@ -29,6 +31,44 @@ USAGE
 * [`scraper plugins:uninstall PLUGIN...`](#scraper-pluginsuninstall-plugin-1)
 * [`scraper plugins:uninstall PLUGIN...`](#scraper-pluginsuninstall-plugin-2)
 * [`scraper plugins update`](#scraper-plugins-update)
+
+## `scraper fetch`
+
+Fetch available Ubuntu Cloud Images
+
+```
+USAGE
+  $ scraper fetch [--name <value>] [--version <value>] [--arch <value>] [--release <value>] [--fetch-files]
+
+FLAGS
+  --arch=<value>...
+  --[no-]fetch-files
+  --name=<value>...
+  --release=<value>...
+  --version=<value>...
+
+DESCRIPTION
+  Fetch available Ubuntu Cloud Images
+```
+
+_See code: [dist/commands/fetch/index.ts](https://github.com/Vinrobot/ubuntu-cloud-images/blob/v1.0.0/dist/commands/fetch/index.ts)_
+
+## `scraper generate LIBPATH RELEASESPATH`
+
+Generate VMware Content Library
+
+```
+USAGE
+  $ scraper generate LIBPATH RELEASESPATH [--name <value>]
+
+FLAGS
+  --name=<value>  [default: ubuntu-cloud-images]
+
+DESCRIPTION
+  Generate VMware Content Library
+```
+
+_See code: [dist/commands/generate/index.ts](https://github.com/Vinrobot/ubuntu-cloud-images/blob/v1.0.0/dist/commands/generate/index.ts)_
 
 ## `scraper help [COMMANDS]`
 
@@ -101,7 +141,7 @@ ALIASES
   $ scraper plugins add
 
 EXAMPLES
-  $ scraper plugins:install myplugin
+  $ scraper plugins:install myplugin 
 
   $ scraper plugins:install https://github.com/someuser/someplugin
 
@@ -164,7 +204,7 @@ ALIASES
   $ scraper plugins add
 
 EXAMPLES
-  $ scraper plugins:install myplugin
+  $ scraper plugins:install myplugin 
 
   $ scraper plugins:install https://github.com/someuser/someplugin
 

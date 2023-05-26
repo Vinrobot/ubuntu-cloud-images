@@ -28,7 +28,7 @@ function readFile(file: string) {
 }
 
 export default class Generate extends Command {
-  static description = '';
+  static description = 'Generate VMware Content Library';
 
   static examples = [];
 
