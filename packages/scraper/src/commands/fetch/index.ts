@@ -1,6 +1,6 @@
 import { Command, Flags, ux } from '@oclif/core';
 
-import { UbuntuScraper } from '../../lib/ubuntu';
+import { loadReleases, getOvaFile } from '@vinrobot/ubuntu-cloud-images';
 
 export default class Fetch extends Command {
   static description = 'Fetch available Ubuntu Cloud Images';
@@ -20,10 +20,8 @@ export default class Fetch extends Command {
   async run(): Promise<void> {
     const { flags } = await this.parse(Fetch);
 
-    const scraper = new UbuntuScraper();
-
     ux.action.start('Fetching releases...');
-    let releases = await scraper.loadReleases();
+    let releases = await loadReleases();
     ux.action.stop();
 
     this.logToStderr(`Found ${releases.length} releases`);
@@ -58,7 +56,7 @@ export default class Fetch extends Command {
       const availableReleases = [];
       for (const release of releases) {
         // eslint-disable-next-line no-await-in-loop
-        const file = await scraper.getOvaFile(release);
+        const file = await getOvaFile(release);
         if (file) {
           release.file = file;
           availableReleases.push(release);

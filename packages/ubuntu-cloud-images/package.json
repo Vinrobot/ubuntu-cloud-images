@@ -1,0 +1,59 @@
+{
+  "name": "@vinrobot/ubuntu-cloud-images",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Vinrobot",
+  "license": "MIT",
+  "homepage": "https://github.com/Vinrobot/ubuntu-cloud-images",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vinrobot/ubuntu-cloud-images.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Vinrobot/ubuntu-cloud-images/issues"
+  },
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "index.d.ts",
+  "typesVersions": {
+    ">=4.2": {
+      "*": [
+        "dist/types/*"
+      ]
+    }
+  },
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "node": "./dist/cjs/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
+    }
+  },
+  "scripts": {
+    "build": "npm-run-all build:clean build:all",
+    "build:clean": "shx rm -rf ./dist",
+    "build:all": "tsc -b ./src/tsconfig.cjs.json ./src/tsconfig.esm.json ./src/tsconfig.types.json",
+    "lint": "eslint . --ext .ts --config .eslintrc"
+  },
+  "files": [
+    "/dist"
+  ],
+  "dependencies": {
+    "node-fetch": "^2.6.11",
+    "uuid": "^9.0.0",
+    "vm2": "^3.9.19"
+  },
+  "devDependencies": {
+    "@types/node": "^16.18.34",
+    "@types/node-fetch": "^2.6.4",
+    "@types/uuid": "^9.0.1",
+    "eslint": "^7.32.0",
+    "npm-run-all": "4.1.2",
+    "shx": "^0.3.4",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.5.2",
+    "typescript": "^4.9.5"
+  }
+}

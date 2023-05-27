@@ -1,5 +1,6 @@
 {
   "workspaces": [
-    "packages/scraper"
+    "packages/scraper",
+    "packages/ubuntu-cloud-images"
   ]
 }

@@ -34,6 +34,7 @@
     "@oclif/core": "^2.8.5",
     "@oclif/plugin-help": "^5.2.9",
     "@oclif/plugin-plugins": "^2.4.7",
+    "@vinrobot/ubuntu-cloud-images": "^1.0.0",
     "node-fetch": "^2.6.11",
     "uuid": "^9.0.0",
     "vm2": "^3.9.19"

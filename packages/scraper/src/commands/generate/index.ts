@@ -3,7 +3,7 @@ import { readFile as fsReadFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { createInterface } from 'node:readline';
 
-import { Release } from '../../lib/ubuntu';
+import { Release } from '@vinrobot/ubuntu-cloud-images';
 import { buildContentLibrary, ReleasesProvider } from '../../lib/vmware';
 
 function readFromStdin(): Promise<string> {

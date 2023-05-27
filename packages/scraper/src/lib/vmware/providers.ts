@@ -3,7 +3,7 @@ import { createReadStream } from 'node:fs';
 import { readdir, stat } from 'node:fs/promises';
 import { basename, join } from 'node:path';
 
-import { Release } from '../ubuntu';
+import { Release } from '@vinrobot/ubuntu-cloud-images';
 import { filterAsync, updateHash } from './helpers';
 import { ContentLibraryProvider, Directory, File } from './types';
 
