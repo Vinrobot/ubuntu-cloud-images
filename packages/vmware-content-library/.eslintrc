@@ -1,0 +1,16 @@
+{
+  "extends": [
+    "oclif",
+    "oclif-typescript"
+  ],
+  "rules": {
+    "semi": ["error", "always"],
+    "quotes": ["error", "single"],
+    "comma-dangle": ["error", "always-multiline"],
+    "indent": ["error", 2, { "MemberExpression": 1 }],
+    "no-useless-constructor": "off",
+    "unicorn/empty-brace-spaces": "off",
+    "no-warning-comments": "off",
+    "object-curly-spacing": ["error", "always"]
+  }
+}

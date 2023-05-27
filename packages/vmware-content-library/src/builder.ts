@@ -3,7 +3,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { v4 as uuid4 } from 'uuid';
 
-import { areMapEqual } from './helpers';
+import { areMapEqual, updateHash } from './helpers';
 import { ContentLibrary, ContentLibraryCapability, ContentLibraryItem, ContentLibraryItems, ContentLibraryItemType, ContentLibraryProvider, Directory } from './types';
 
 const LIB_FILE = 'lib.json';
@@ -19,7 +19,7 @@ async function createItem(directory: Directory, libId: string) {
     .sort();
 
   const hasher = createHash('md5');
-  await directory.updateHash(hasher, entries);
+  await updateHash(hasher, entries);
   const md5 = hasher.digest('hex');
 
   let type = ContentLibraryItemType.other;

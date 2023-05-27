@@ -4,7 +4,8 @@ import { resolve } from 'node:path';
 import { createInterface } from 'node:readline';
 
 import { Release } from '@vinrobot/ubuntu-cloud-images';
-import { buildContentLibrary, ReleasesProvider } from '../../lib/vmware';
+import { buildContentLibrary } from '@vinrobot/vmware-content-library';
+import { ReleasesProvider } from '../../lib/providers';
 
 function readFromStdin(): Promise<string> {
   return new Promise(resolve => {

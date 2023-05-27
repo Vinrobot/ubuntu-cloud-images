@@ -63,7 +63,6 @@ export interface ContentLibraryProvider {
 export interface Directory {
   readonly name: string;
   getFiles(): Promise<File[]>;
-  updateHash(hasher: Hash, files?: File[]): Promise<Hash>;
 }
 
 export interface File {

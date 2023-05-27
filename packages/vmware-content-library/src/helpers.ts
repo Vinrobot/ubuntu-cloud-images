@@ -1,4 +1,5 @@
 import { Hash } from 'node:crypto';
+
 import { File } from './types';
 
 export function areMapEqual<K, V>(a: Map<K, V>, b: Map<K, V>): boolean {
@@ -8,13 +9,6 @@ export function areMapEqual<K, V>(a: Map<K, V>, b: Map<K, V>): boolean {
   }
 
   return true;
-}
-
-export async function filterAsync<T>(array: T[], predicate: (value: T) => Promise<boolean>): Promise<T[]> {
-  const predicates: [boolean, T][] = await Promise.all(array.map(async entry => {
-    return [await predicate(entry), entry];
-  }));
-  return predicates.filter(([match, _]) => match).map(([_, value]) => value);
 }
 
 export async function updateHash(hasher: Hash, files: File[]): Promise<Hash> {
