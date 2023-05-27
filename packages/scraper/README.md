@@ -1,15 +1,15 @@
-# Ubuntu Cloud Images
+# Ubuntu Cloud Images - Scraper
 
 WIP script to create a VMware Content Library from the [Ubuntu Cloud Images](https://cloud-images.ubuntu.com/releases/).
 
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g ubuntu-cloud-images
+$ npm install -g scraper
 $ scraper COMMAND
 running command...
 $ scraper (--version)
-ubuntu-cloud-images/1.0.0 darwin-x64 node-v19.2.0
+scraper/1.0.0 darwin-x64 node-v19.2.0
 $ scraper --help [COMMAND]
 USAGE
   $ scraper COMMAND
