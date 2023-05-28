@@ -36,22 +36,16 @@
     "@oclif/plugin-plugins": "^2.4.7",
     "@vinrobot/ubuntu-cloud-images": "^1.0.0",
     "@vinrobot/vmware-content-library": "^1.0.0",
-    "node-fetch": "^2.6.11",
     "uuid": "^9.0.0",
     "vm2": "^3.9.19"
   },
   "devDependencies": {
     "@types/node": "^16.18.34",
-    "@types/node-fetch": "^2.6.4",
     "@types/uuid": "^9.0.1",
     "eslint": "^7.32.0",
     "eslint-config-oclif": "^4.0.0",
     "eslint-config-oclif-typescript": "^1.0.3",
-    "oclif": "^3.9.0",
-    "shx": "^0.3.4",
-    "ts-node": "^10.9.1",
-    "tslib": "^2.5.2",
-    "typescript": "^4.9.5"
+    "oclif": "^3.9.0"
   },
   "oclif": {
     "bin": "scraper",
